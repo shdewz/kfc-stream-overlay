@@ -55,6 +55,21 @@ html {
 	z-index: -10;
 }
 
+#logo-container {
+	position: absolute;
+	height: 160px;
+	width: 500px;
+	left: 50%;
+	transform: translateX(-50%);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#logo {
+	width: 300px;
+}
+
 #header {
 	width: 1920px;
 	height: 160px;
