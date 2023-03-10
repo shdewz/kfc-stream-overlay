@@ -83,15 +83,9 @@ socket.onmessage = event => {
 		if (scoreVisible) {
 			chat_container.style.opacity = 0;
 			top_footer.style.opacity = 1;
-			// document.documentElement.style.setProperty('--bottom-width', '1420px');
-			// document.getElementById('strains').getContext('2d').canvas.width = 1420;
-			// document.getElementById('strainsProgress').getContext('2d').canvas.width = 1420;
 		} else {
 			chat_container.style.opacity = 1;
 			top_footer.style.opacity = 0;
-			// document.documentElement.style.setProperty('--bottom-width', '650px');
-			// document.getElementById('strains').getContext('2d').canvas.width = 650;
-			// document.getElementById('strainsProgress').getContext('2d').canvas.width = 650;
 		}
 	}
 	if (starsVisible !== data.tourney.manager.bools.starsVisible) {
@@ -174,8 +168,8 @@ socket.onmessage = event => {
 				let nodeRed = document.createElement('div');
 				nodeBlue.className = 'star-b';
 				nodeRed.className = 'star-r';
-				nodeBlue.id = 'blue' + i.toString();
-				nodeRed.id = 'red' + i.toString();
+				nodeBlue.id = `blue${i}`;
+				nodeRed.id = `red${i}`;
 				document.getElementById('blue-points').appendChild(nodeBlue);
 				document.getElementById('red-points').appendChild(nodeRed);
 			}
@@ -187,8 +181,8 @@ socket.onmessage = event => {
 				let nodeRed = document.createElement('div');
 				nodeBlue.className = 'star-b';
 				nodeRed.className = 'star-r';
-				nodeBlue.id = 'blue' + i.toString();
-				nodeRed.id = 'red' + i.toString();
+				nodeBlue.id = `blue${i}`;
+				nodeRed.id = `red${i}`;
 				document.getElementById('blue-points').appendChild(nodeBlue);
 				document.getElementById('red-points').appendChild(nodeRed);
 			}
@@ -207,23 +201,23 @@ socket.onmessage = event => {
 	if (starsRed !== data.tourney.manager.stars.left) {
 		starsRed = data.tourney.manager.stars.left;
 		for (let i = 1; i <= starsRed; i++) {
-			document.getElementById('red' + i.toString()).style.backgroundColor = '#e9d79a';
-			document.getElementById('red' + i.toString()).style.border = '3px solid #e9d79a';
+			document.getElementById(`red${i}`).style.backgroundColor = '#e9d79a';
+			document.getElementById(`red${i}`).style.border = '3px solid #e9d79a';
 		}
 		for (let i = starsRed + 1; i <= firstTo; i++) {
-			document.getElementById('red' + i.toString()).style.backgroundColor = 'unset';
-			document.getElementById('red' + i.toString()).style.border = '3px solid #f5f5f5';
+			document.getElementById(`red${i}`).style.backgroundColor = 'unset';
+			document.getElementById(`red${i}`).style.border = '3px solid #f5f5f5';
 		}
 	}
 	if (starsBlue !== data.tourney.manager.stars.right) {
 		starsBlue = data.tourney.manager.stars.right;
 		for (let i = 1; i <= starsBlue; i++) {
-			document.getElementById('blue' + i.toString()).style.backgroundColor = '#e9d79a';
-			document.getElementById('blue' + i.toString()).style.border = '3px solid #e9d79a';
+			document.getElementById(`blue${i}`).style.backgroundColor = '#e9d79a';
+			document.getElementById(`blue${i}`).style.border = '3px solid #e9d79a';
 		}
 		for (let i = starsBlue + 1; i <= firstTo; i++) {
-			document.getElementById('blue' + i.toString()).style.backgroundColor = 'unset';
-			document.getElementById('blue' + i.toString()).style.border = '3px solid #f5f5f5';
+			document.getElementById(`blue${i}`).style.backgroundColor = 'unset';
+			document.getElementById(`blue${i}`).style.border = '3px solid #f5f5f5';
 		}
 	}
 
@@ -302,24 +296,15 @@ socket.onmessage = event => {
 	}
 	if (!scoreVisible) {
 		if (chatLen != data.tourney.manager.chat.length) {
-			// There's new chats that haven't been updated
 
-			if (chatLen == 0 || (chatLen > 0 && chatLen > data.tourney.manager.chat.length)) {
-				// Starts from bottom
-				chat.innerHTML = '';
-				chatLen = 0;
-			}
+			if (chatLen == 0 || (chatLen > 0 && chatLen > data.tourney.manager.chat.length)) { chat.innerHTML = ''; chatLen = 0; }
 
-			// Add the chats
-			for (var i = chatLen; i < data.tourney.manager.chat.length; i++) {
+			for (let i = chatLen; i < data.tourney.manager.chat.length; i++) {
 				tempClass = data.tourney.manager.chat[i].team;
 
 				let text = data.tourney.manager.chat[i].messageBody;
-				if (data.tourney.manager.chat[i].name == 'BanchoBot' && text.startsWith('Match history')) {
-					continue;
-				}
+				if (data.tourney.manager.chat[i].name == 'BanchoBot' && text.startsWith('Match history')) continue;
 
-				// Chat variables
 				let chatParent = document.createElement('div');
 				chatParent.setAttribute('class', 'chat');
 
@@ -345,10 +330,7 @@ socket.onmessage = event => {
 
 			}
 
-			// Update the Length of chat
 			chatLen = data.tourney.manager.chat.length;
-
-			// Update the scroll so it's sticks at the bottom by default
 			chat.scrollTop = chat.scrollHeight;
 		}
 	}
