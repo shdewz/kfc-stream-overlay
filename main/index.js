@@ -254,8 +254,8 @@ socket.onmessage = event => {
 		scoreRed = scores.filter(s => s.id == 0 || s.id == 1).map(s => s.score).reduce((a, b) => a + b) / 2;
 		scoreBlue = scores.filter(s => s.id == 2 || s.id == 3).map(s => s.score).reduce((a, b) => a + b) / 2;
 
-		animation.red_score.update(scoreRed);
-		animation.blue_score.update(scoreBlue);
+		(scoreRed >= 0 && scoreRed <= 100) ? animation.red_score.update(scoreRed) : console.log("scoreRed out of range: " + scoreRed);
+		(scoreBlue >= 0 && scoreBlue <= 100) ? animation.blue_score.update(scoreBlue) : console.log("scoreBlue out of range: " + scoreBlue);
 
 		if (scoreRed > scoreBlue) {
 			red_score.style.fontWeight = 'bold';
