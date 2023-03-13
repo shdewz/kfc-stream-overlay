@@ -65,6 +65,7 @@ class Beatmap {
         this.bg = document.createElement('div');
         this.map = document.createElement('div');
         this.overlay = document.createElement('div');
+        this.blinkoverlay = document.createElement('div');
         this.artist = document.createElement('div');
         this.title = document.createElement('div');
         this.difficulty = document.createElement('div');
@@ -75,6 +76,7 @@ class Beatmap {
         this.bg.id = this.layerName;
         this.map.id = `${this.layerName}BG`;
         this.overlay.id = `${this.layerName}Overlay`;
+        this.blinkoverlay.id = `${this.layerName}BlinkOverlay`;
         this.artist.id = `${this.layerName}ARTIST`;
         this.title.id = `${this.layerName}TITLE`;
         this.difficulty.id = `${this.layerName}DIFF`;
@@ -88,12 +90,14 @@ class Beatmap {
         this.map.setAttribute('class', 'map');
         this.pickedStatus.setAttribute('class', 'pickingStatus');
         this.overlay.setAttribute('class', 'overlay');
+        this.blinkoverlay.setAttribute('class', 'blinkoverlay');
         this.bg.setAttribute('class', 'statBG');
         this.modIcon.setAttribute('class', `modIcon icon-${this.mods.toLowerCase()}`);
         this.modIcon.innerHTML = `${this.mods}`;
         this.clicker.setAttribute('class', 'clicker');
         clickerObj.appendChild(this.map);
         document.getElementById(this.map.id).appendChild(this.overlay);
+        document.getElementById(this.map.id).appendChild(this.blinkoverlay);
         document.getElementById(this.map.id).appendChild(this.artist);
         document.getElementById(this.map.id).appendChild(this.title);
         document.getElementById(this.map.id).appendChild(this.difficulty);
@@ -187,6 +191,7 @@ async function setupBeatmaps() {
                 if (!event.shiftKey) {
                     bm.pickedStatus.style.color = '#f5f5f5';
                     bm.overlay.style.opacity = event.ctrlKey ? '0.95' : '0.85';
+                    bm.blinkoverlay.style.animation = event.ctrlKey ? 'none' : 'blinker 1s cubic-bezier(.36,.06,.01,.57) 300ms 8';
                     bm.artist.style.opacity = '0.3';
                     bm.title.style.opacity = '0.3';
                     bm.difficulty.style.opacity = '0.3';
@@ -199,6 +204,7 @@ async function setupBeatmaps() {
                     }, 300);
                 } else {
                     bm.overlay.style.opacity = '0.5';
+                    bm.blinkoverlay.style.animation = 'none';
                     bm.artist.style.opacity = '1';
                     bm.title.style.opacity = '1';
                     bm.difficulty.style.opacity = '1';
@@ -217,6 +223,7 @@ async function setupBeatmaps() {
                 if (!event.shiftKey) {
                     bm.pickedStatus.style.color = '#f5f5f5';
                     bm.overlay.style.opacity = event.ctrlKey ? '0.95' : '0.85';
+                    bm.blinkoverlay.style.animation = event.ctrlKey ? 'none' : 'blinker 1s cubic-bezier(.36,.06,.01,.57) 300ms 8';
                     bm.artist.style.opacity = '0.3';
                     bm.title.style.opacity = '0.3';
                     bm.difficulty.style.opacity = '0.3';
@@ -229,6 +236,7 @@ async function setupBeatmaps() {
                     }, 150);
                 } else {
                     bm.overlay.style.opacity = '0.5';
+                    bm.blinkoverlay.style.animation = 'none';
                     bm.artist.style.opacity = '1';
                     bm.title.style.opacity = '1';
                     bm.difficulty.style.opacity = '1';
