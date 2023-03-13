@@ -155,8 +155,8 @@ async function setupBeatmaps() {
     try {
         $.ajaxSetup({ cache: false });
         const jsonData = await $.getJSON(`../_data/beatmaps.json`);
-        console.log(jsonData.map(b => b.beatmap_id));
-        jsonData.map((beatmap) => {
+        console.log(jsonData.beatmaps.map(b => b.beatmap_id));
+        jsonData.beatmaps.map((beatmap) => {
             bms.push(beatmap);
         });
     } catch (error) {

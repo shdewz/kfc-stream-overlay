@@ -24,7 +24,7 @@ let strain_container = document.getElementById('strain-container');
 let mappool;
 (async () => {
 	$.ajaxSetup({ cache: false });
-	mappool = await $.getJSON('../_data/beatmaps.json');
+	mappool = (await $.getJSON('../_data/beatmaps.json')).beatmaps;
 })();
 
 socket.onopen = () => { console.log('Successfully Connected'); };
