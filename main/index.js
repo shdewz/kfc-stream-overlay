@@ -245,14 +245,18 @@ socket.onmessage = event => {
 	}
 
 	if (scoreVisible) {
-		let scores = [];
-		for (let i = 0; i < 4; i++) {
-			let score = data.tourney.ipcClients[i].gameplay.accuracy;
-			scores.push({ id: i, score });
-		}
+		// let scores = [];
+		// for (let i = 0; i < 4; i++) {
+		// 	let score = data.tourney.ipcClients[i].gameplay.accuracy;
+		// 	scores.push({ id: i, score });
+		// }
 
-		scoreRed = scores.filter(s => s.id == 0 || s.id == 1).map(s => s.score).reduce((a, b) => a + b) / 2;
-		scoreBlue = scores.filter(s => s.id == 2 || s.id == 3).map(s => s.score).reduce((a, b) => a + b) / 2;
+		// scoreRed = scores.filter(s => s.id == 0 || s.id == 1).map(s => s.score).reduce((a, b) => a + b) / 2;
+		// scoreBlue = scores.filter(s => s.id == 2 || s.id == 3).map(s => s.score).reduce((a, b) => a + b) / 2;
+
+		// not as pretty and cant add mod multipliers but faster
+		scoreRed = (data.tourney.ipcClients[0].gameplay.accuracy + data.tourney.ipcClients[1].gameplay.accuracy) / 2
+		scoreBlue = (data.tourney.ipcClients[2].gameplay.accuracy + data.tourney.ipcClients[3].gameplay.accuracy) / 2
 
 		(scoreRed >= 0 && scoreRed <= 100) ? animation.red_score.update(scoreRed) : console.log("scoreRed out of range: " + scoreRed);
 		(scoreBlue >= 0 && scoreBlue <= 100) ? animation.blue_score.update(scoreBlue) : console.log("scoreBlue out of range: " + scoreBlue);
@@ -263,7 +267,7 @@ socket.onmessage = event => {
 			blue_score.style.fontWeight = 'normal';
 			blue_score.style.color = '#f5f5f5';
 
-			if (now - last_score_update > 300 && arrow_rotation || 180) {
+			if (now - last_score_update > 300 && arrow_rotation !== 180) {
 				last_score_update = now;
 				arrow_rotation = 180;
 				lead_arrow.style.transform = `rotate(${arrow_rotation}deg)`;
@@ -275,7 +279,7 @@ socket.onmessage = event => {
 			red_score.style.fontWeight = 'normal';
 			red_score.style.color = '#f5f5f5';
 
-			if (now - last_score_update > 300 && arrow_rotation || 360) {
+			if (now - last_score_update > 300 && arrow_rotation !== 360) {
 				last_score_update = now;
 				arrow_rotation = 360;
 				lead_arrow.style.transform = `rotate(${arrow_rotation}deg)`;
@@ -287,7 +291,7 @@ socket.onmessage = event => {
 			blue_score.style.fontWeight = 'bold';
 			blue_score.style.color = '#f5f5f5';
 
-			if (now - last_score_update > 300 && arrow_rotation || 270) {
+			if (now - last_score_update > 300 && arrow_rotation !== 270) {
 				last_score_update = now;
 				arrow_rotation = 270;
 				lead_arrow.style.transform = `rotate(${arrow_rotation}deg)`;
