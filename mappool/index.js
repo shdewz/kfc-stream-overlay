@@ -191,8 +191,7 @@ async function setupBeatmaps() {
                 if (!event.shiftKey) {
                     bm.pickedStatus.style.color = '#f5f5f5';
                     bm.overlay.style.opacity = event.ctrlKey ? '0.95' : '0.85';
-                    // bm.blinkoverlay.style.animation = event.ctrlKey ? 'none' : 'blinker 0.75s cubic-bezier(.24,.04,.42,.89) 8';
-                    bm.blinkoverlay.style.animation = event.ctrlKey ? 'none' : 'blinker 1s cubic-bezier(.36,.06,.01,.57) 8';
+                    bm.blinkoverlay.style.animation = event.ctrlKey ? 'none' : 'blinker 1s cubic-bezier(.36,.06,.01,.57) 300ms 8';
                     bm.artist.style.opacity = '0.3';
                     bm.title.style.opacity = '0.3';
                     bm.difficulty.style.opacity = '0.3';
@@ -205,7 +204,6 @@ async function setupBeatmaps() {
                     }, 300);
                 } else {
                     bm.overlay.style.opacity = '0.5';
-                    bm.blinkoverlay.style.opacity = '0.0';
                     bm.blinkoverlay.style.animation = 'none';
                     bm.artist.style.opacity = '1';
                     bm.title.style.opacity = '1';
@@ -225,7 +223,7 @@ async function setupBeatmaps() {
                 if (!event.shiftKey) {
                     bm.pickedStatus.style.color = '#f5f5f5';
                     bm.overlay.style.opacity = event.ctrlKey ? '0.95' : '0.85';
-                    bm.blinkoverlay.style.animation = event.ctrlKey ? 'none' : 'blinker 1s cubic-bezier(.36,.06,.01,.57) 8';
+                    bm.blinkoverlay.style.animation = event.ctrlKey ? 'none' : 'blinker 1s cubic-bezier(.36,.06,.01,.57) 300ms 8';
                     bm.artist.style.opacity = '0.3';
                     bm.title.style.opacity = '0.3';
                     bm.difficulty.style.opacity = '0.3';
@@ -238,7 +236,6 @@ async function setupBeatmaps() {
                     }, 150);
                 } else {
                     bm.overlay.style.opacity = '0.5';
-                    bm.blinkoverlay.style.opacity = '0.0';
                     bm.blinkoverlay.style.animation = 'none';
                     bm.artist.style.opacity = '1';
                     bm.title.style.opacity = '1';
