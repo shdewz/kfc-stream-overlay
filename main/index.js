@@ -322,7 +322,7 @@ socket.onmessage = event => {
 				chatText.setAttribute('class', 'chatText');
 
 				chatTime.innerText = data.tourney.manager.chat[i].time;
-				chatName.innerText = data.tourney.manager.chat[i].name + ':\xa0\xa0';
+				chatName.innerText = data.tourney.manager.chat[i].name + ': \xa0';
 				chatText.innerText = text;
 
 				chatName.classList.add(tempClass);

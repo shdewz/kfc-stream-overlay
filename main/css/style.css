@@ -390,12 +390,11 @@ html {
 	position: absolute;
 	bottom: 0;
 	left: 0;
-	width: 690px;
-	height: 194px;
+	width: 688px;
+	height: 188px;
 	overflow-y: scroll;
 	overflow-x: hidden;
 	padding: 6px;
-	padding-top: 0;
 	font-size: 19px;
 	font-family: Torus;
 	transition: ease-in-out 500ms;
@@ -415,7 +414,7 @@ html {
 .chat {
 	display: flex;
 	text-align: left;
-	line-height: 24px;
+	line-height: 23.3px;
 	font-size: 19px;
 	font-family: 'EBGaramond';
 }
