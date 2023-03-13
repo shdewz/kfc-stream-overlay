@@ -3,6 +3,7 @@ let mappool, teams;
 	$.ajaxSetup({ cache: false });
 	mappool = await $.getJSON('../_data/beatmaps.json');
 	// teams = await $.getJSON('../_data/teams.json');
+	document.getElementById('stage-name').innerHTML = mappool.stage.toUpperCase();
 })();
 
 let socket = new ReconnectingWebSocket('ws://' + location.host + '/ws');
@@ -122,7 +123,7 @@ socket.onmessage = event => {
 	}
 
 	if (mappool && md5 !== data.menu.bm.md5 || len_ !== data.menu.bm.time.full - data.menu.bm.time.firstObj) {
-		map = mappool ? mappool.find(m => m.beatmap_id == data.menu.bm.id) || { id: data.menu.bm.id, mods: 'NM', identifier: '' } : { mods: 'NM' };
+		map = mappool ? mappool.beatmaps.find(m => m.beatmap_id == data.menu.bm.id) || { id: data.menu.bm.id, mods: 'NM', identifier: '' } : { mods: 'NM' };
 		let mod_ = map.mods;
 		stats = getModStats(data.menu.bm.stats.CS, data.menu.bm.stats.AR, data.menu.bm.stats.OD, data.menu.bm.stats.BPM.max, mod_);
 		let singlestat = mod_ != 'FM';
@@ -255,8 +256,8 @@ socket.onmessage = event => {
 		// scoreBlue = scores.filter(s => s.id == 2 || s.id == 3).map(s => s.score).reduce((a, b) => a + b) / 2;
 
 		// not as pretty and cant add mod multipliers but faster
-		scoreRed = (data.tourney.ipcClients[0].gameplay.accuracy + data.tourney.ipcClients[1].gameplay.accuracy) / 2
-		scoreBlue = (data.tourney.ipcClients[2].gameplay.accuracy + data.tourney.ipcClients[3].gameplay.accuracy) / 2
+		scoreRed = (data.tourney.ipcClients[0].gameplay.accuracy + data.tourney.ipcClients[1].gameplay.accuracy) / 2;
+		scoreBlue = (data.tourney.ipcClients[2].gameplay.accuracy + data.tourney.ipcClients[3].gameplay.accuracy) / 2;
 
 		(scoreRed >= 0 && scoreRed <= 100) ? animation.red_score.update(scoreRed) : console.log("scoreRed out of range: " + scoreRed);
 		(scoreBlue >= 0 && scoreBlue <= 100) ? animation.blue_score.update(scoreBlue) : console.log("scoreBlue out of range: " + scoreBlue);
