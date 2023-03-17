@@ -199,8 +199,8 @@ async function setupBeatmaps() {
                     bm.bg.style.opacity = '0';
                     setTimeout(function () {
                         bm.pickedStatus.style.opacity = '1';
-                        bm.pickedStatus.style.outline = event.ctrlKey ? 'none' : '3px solid #ff8d8d';
-                        bm.pickedStatus.innerHTML = event.ctrlKey ? `<b class="pickRed">${redName}</b> ban` : `<b class="pickRed">${redName}</b> pick`;
+                        bm.pickedStatus.style.outline = bm.mods.includes("TB") ? "3px solid #FFF" : event.ctrlKey ? 'none' : '3px solid #ff8d8d';
+                        bm.pickedStatus.innerHTML = bm.mods.includes("TB") ? "Tiebreaker triggered" : event.ctrlKey ? `<b class="pickRed">${redName}</b> ban` : `<b class="pickRed">${redName}</b> pick`;
                     }, 300);
                 } else {
                     bm.overlay.style.opacity = '0.5';
@@ -231,8 +231,8 @@ async function setupBeatmaps() {
                     bm.bg.style.opacity = '0';
                     setTimeout(function () {
                         bm.pickedStatus.style.opacity = '1';
-                        bm.pickedStatus.style.outline = event.ctrlKey ? 'none' : '3px solid #93b5ff';
-                        bm.pickedStatus.innerHTML = event.ctrlKey ? `<b class="pickBlue">${blueName}</b> ban` : `<b class="pickBlue">${blueName}</b> pick`;
+                        bm.pickedStatus.style.outline = bm.mods.includes("TB") ? "3px solid #FFF" : event.ctrlKey ? 'none' : '3px solid #93b5ff';
+                        bm.pickedStatus.innerHTML = bm.mods.includes("TB") ? "Tiebreaker triggered" : event.ctrlKey ? `<b class="pickBlue">${blueName}</b> ban` : `<b class="pickBlue">${blueName}</b> pick`;
                     }, 150);
                 } else {
                     bm.overlay.style.opacity = '0.5';
