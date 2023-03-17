@@ -44,6 +44,6 @@ socket.onmessage = event => {
 
 	if (comingup && tempTime !== comingup.time) {
 		tempTime = comingup.time;
-		time.innerHTML = `${new Date(tempTime - 3 * 60 * 60 * 1000).toTimeString().split(' ')[0].substring(0, 5)} UTC`;
+		time.innerHTML = `${new Date(tempTime).toUTCString().substring(17, 22)} UTC`;
 	}
 }
