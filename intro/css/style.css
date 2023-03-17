@@ -1,0 +1,132 @@
+@font-face {
+	font-family: 'Torus';
+	src: url('../fonts/Torus-Regular.otf');
+	font-weight: 400;
+}
+
+@font-face {
+	font-family: 'Torus';
+	src: url('../fonts/Torus-SemiBold.otf');
+	font-weight: 500;
+}
+
+@font-face {
+	font-family: 'Torus';
+	src: url('../fonts/Torus-Bold.otf');
+	font-weight: 700;
+}
+
+@font-face {
+	font-family: 'EBGaramond';
+	src: url('../fonts/EBGaramond-Medium.ttf');
+	font-weight: 400;
+}
+
+@font-face {
+	font-family: 'EBGaramond';
+	src: url('../fonts/EBGaramond-ExtraBold.ttf');
+	font-weight: 700;
+}
+
+body,
+html {
+	padding: 0;
+	margin: 0;
+	overflow-y: hidden;
+}
+
+#main {
+	width: 1920px;
+	height: 1080px;
+	position: relative;
+}
+
+#coming-up {
+	position: absolute;
+	bottom: 150px;
+	left: 174px;
+	height: 120px;
+	text-align: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#timer {
+	height: 80px;
+	color: #ffffff;
+	text-align: right;
+	font-family: 'EBGaramond';
+	text-transform: uppercase;
+	font-weight: bold;
+	letter-spacing: 1px;
+	font-size: 72px;
+	color: #ffffff;
+}
+
+#coming-up h3 {
+	font-family: 'EBGaramond';
+	font-size: 30px;
+	line-height: 72px;
+	margin-top: 26px;
+	padding-left: 18px;
+	font-weight: bold;
+	color: #f9f0db;
+}
+
+#header {
+	width: 1920px;
+	height: 100px;
+	opacity: 100%;
+	font-family: 'EBGaramond';
+	letter-spacing: 1px;
+	font-size: 36px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: #ffffff;
+}
+
+#full-overlay {
+	width: 1920px;
+	height: 1080px;
+	/* background-image: url('../static/reference.png'); */
+	background-size: cover;
+}
+
+#title {
+	position: absolute;
+	color: #ffffff;
+	bottom: 32px;
+	right: 36px;
+	text-align: right;
+	font-family: 'Torus';
+	text-transform: uppercase;
+	font-weight: bold;
+	letter-spacing: 1px;
+	font-size: 22px;
+}
+
+#note {
+	color: #f9f0db;
+	margin-right: 6px;
+}
+
+/*Scrollbar*/
+::-webkit-scrollbar {
+	width: 0px;
+	visibility: 0;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	margin-top: 25px;
+	margin-bottom: 25px;
+	visibility: 0;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: grey;
+	border-radius: 10px;
+}
