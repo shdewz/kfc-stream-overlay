@@ -408,13 +408,15 @@ html {
 
 #progress {
 	position: absolute;
-	width: var(--bottom-width);
+	width: calc(2 * var(--bottom-width));
 	height: var(--footer-height);
 	padding: 0;
 	left: 0;
 	bottom: 0;
 	overflow: hidden;
 	transition: 500ms linear;
+	-webkit-mask-image: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 49.75%, transparent 50%);
+	mask-image: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 49.75%, transparent 50%);
 }
 
 #chat-container {
