@@ -172,6 +172,12 @@ html {
     }
 }
 
+@keyframes slowPulse {
+    50% {
+        opacity: 0.3;
+    }
+}
+
 .modIcon {
     position: absolute;
     top: 9px;

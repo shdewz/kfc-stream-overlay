@@ -139,8 +139,9 @@ socket.onmessage = async event => {
 	if (seek !== data.menu.bm.time.current && fulltime !== undefined && fulltime != 0 && now - last_strain_update > 500) {
 		last_strain_update = now;
 		seek = data.menu.bm.time.current;
-		let width = onepart * seek + 'px';
-		progressChart.style.width = width;
+		let maskPosition = `${-1420 + onepart * seek}px 0px`;
+		progressChart.style.maskPosition = maskPosition;
+		progressChart.style.webkitMaskPosition = maskPosition;
 	}
 }
 
