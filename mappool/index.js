@@ -177,6 +177,36 @@ async function setupBeatmaps() {
     let row = -1;
     let preMod = 0;
     let colIndex = 0;
+
+    function setPickedMap(bm, event) {
+        if (lastPicked !== null) {
+            lastPicked.blinkoverlay.style.animation = 'none';
+        }
+        lastPicked = bm;
+        bm.pickedStatus.style.color = '#f5f5f5';
+        bm.overlay.style.opacity = event.ctrlKey ? '0.95' : '0.85';
+        bm.blinkoverlay.style.animation = event.ctrlKey ?
+            'none' : 'blinker 1s cubic-bezier(.36,.06,.01,.57) 300ms 8, slowPulse 5000ms ease-in-out 8000ms infinite';
+        bm.artist.style.opacity = '0.3';
+        bm.title.style.opacity = '0.3';
+        bm.difficulty.style.opacity = '0.3';
+        bm.modIcon.style.opacity = '0.3';
+        bm.bg.style.opacity = '0';
+    }
+
+    function resetMapPick(bm) {
+        bm.overlay.style.opacity = '0.5';
+        bm.blinkoverlay.style.animation = 'none';
+        bm.artist.style.opacity = '1';
+        bm.title.style.opacity = '1';
+        bm.difficulty.style.opacity = '1';
+        bm.modIcon.style.opacity = '1';
+        bm.bg.style.opacity = '1';
+        bm.pickedStatus.style.opacity = '0';
+        bm.pickedStatus.style.boxShadow = 'none';
+        bm.pickedStatus.style.outline = 'none';
+    }
+
     bms.map(async (beatmap, index) => {
         if (beatmap.mods !== preMod || colIndex % 3 === 0) {
             preMod = beatmap.mods;
@@ -190,35 +220,14 @@ async function setupBeatmaps() {
         bm.clicker.addEventListener('mousedown', function () {
             bm.clicker.addEventListener('click', function (event) {
                 if (!event.shiftKey) {
-                    if (lastPicked !== null) {
-                        lastPicked.blinkoverlay.style.animation = 'none';
-                    }
-                    lastPicked = bm;
-                    bm.pickedStatus.style.color = '#f5f5f5';
-                    bm.overlay.style.opacity = event.ctrlKey ? '0.95' : '0.85';
-                    bm.blinkoverlay.style.animation = event.ctrlKey ?
-                        'none' : 'blinker 1s cubic-bezier(.36,.06,.01,.57) 300ms 8, slowPulse 5000ms ease-in-out 8000ms infinite';
-                    bm.artist.style.opacity = '0.3';
-                    bm.title.style.opacity = '0.3';
-                    bm.difficulty.style.opacity = '0.3';
-                    bm.modIcon.style.opacity = '0.3';
-                    bm.bg.style.opacity = '0';
+                    setPickedMap(bm, event);
                     setTimeout(function () {
                         bm.pickedStatus.style.opacity = '1';
                         bm.pickedStatus.style.outline = bm.mods.includes("TB") ? "3px solid #FFF" : event.ctrlKey ? 'none' : '3px solid #ff8d8d';
                         bm.pickedStatus.innerHTML = bm.mods.includes("TB") ? "Tiebreaker triggered" : event.ctrlKey ? `<b class="pickRed">${redName}</b> ban` : `<b class="pickRed">${redName}</b> pick`;
                     }, 300);
                 } else {
-                    bm.overlay.style.opacity = '0.5';
-                    bm.blinkoverlay.style.animation = 'none';
-                    bm.artist.style.opacity = '1';
-                    bm.title.style.opacity = '1';
-                    bm.difficulty.style.opacity = '1';
-                    bm.modIcon.style.opacity = '1';
-                    bm.bg.style.opacity = '1';
-                    bm.pickedStatus.style.opacity = '0';
-                    bm.pickedStatus.style.boxShadow = 'none';
-                    bm.pickedStatus.style.outline = 'none';
+                    resetMapPick(bm);
                     setTimeout(function () {
                         bm.pickedStatus.style.opacity = '1';
                         bm.pickedStatus.innerHTML = '';
@@ -227,35 +236,14 @@ async function setupBeatmaps() {
             });
             bm.clicker.addEventListener('contextmenu', function (event) {
                 if (!event.shiftKey) {
-                    if (lastPicked !== null) {
-                        lastPicked.blinkoverlay.style.animation = 'none';
-                    }
-                    lastPicked = bm;
-                    bm.pickedStatus.style.color = '#f5f5f5';
-                    bm.overlay.style.opacity = event.ctrlKey ? '0.95' : '0.85';
-                    bm.blinkoverlay.style.animation = event.ctrlKey ?
-                        'none' : 'blinker 1s cubic-bezier(.36,.06,.01,.57) 300ms 8, slowPulse 5000ms ease-in-out 8000ms infinite';
-                    bm.artist.style.opacity = '0.3';
-                    bm.title.style.opacity = '0.3';
-                    bm.difficulty.style.opacity = '0.3';
-                    bm.modIcon.style.opacity = '0.3';
-                    bm.bg.style.opacity = '0';
+                    setPickedMap(bm, event);
                     setTimeout(function () {
                         bm.pickedStatus.style.opacity = '1';
                         bm.pickedStatus.style.outline = bm.mods.includes("TB") ? "3px solid #FFF" : event.ctrlKey ? 'none' : '3px solid #93b5ff';
                         bm.pickedStatus.innerHTML = bm.mods.includes("TB") ? "Tiebreaker triggered" : event.ctrlKey ? `<b class="pickBlue">${blueName}</b> ban` : `<b class="pickBlue">${blueName}</b> pick`;
                     }, 150);
                 } else {
-                    bm.overlay.style.opacity = '0.5';
-                    bm.blinkoverlay.style.animation = 'none';
-                    bm.artist.style.opacity = '1';
-                    bm.title.style.opacity = '1';
-                    bm.difficulty.style.opacity = '1';
-                    bm.modIcon.style.opacity = '1';
-                    bm.bg.style.opacity = '1';
-                    bm.pickedStatus.style.opacity = '0';
-                    bm.pickedStatus.style.boxShadow = 'none';
-                    bm.pickedStatus.style.outline = 'none';
+                    resetMapPick(bm);
                     setTimeout(function () {
                         bm.pickedStatus.style.opacity = '1';
                         bm.pickedStatus.innerHTML = '';
