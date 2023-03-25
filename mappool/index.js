@@ -185,8 +185,9 @@ async function setupBeatmaps() {
         lastPicked = bm;
         bm.pickedStatus.style.color = '#f5f5f5';
         bm.overlay.style.opacity = event.ctrlKey ? '0.95' : '0.85';
-        bm.blinkoverlay.style.animation = event.ctrlKey ?
-            'none' : 'blinker 1s cubic-bezier(.36,.06,.01,.57) 300ms 8, slowPulse 5000ms ease-in-out 8000ms infinite';
+        bm.blinkoverlay.style.animation = event.ctrlKey
+            ? 'none'
+            : 'blinker 1s cubic-bezier(.36,.06,.01,.57) 300ms 8, slowPulse 5000ms ease-in-out 8000ms 18'; // 36 * 5s -> 180s of slow pulse (+8s), enough to run down 120s countdown but short enough to reset before next time mappool is shown
         bm.artist.style.opacity = '0.3';
         bm.title.style.opacity = '0.3';
         bm.difficulty.style.opacity = '0.3';
