@@ -9,6 +9,7 @@ let mappool, teams;
 let socket = new ReconnectingWebSocket('ws://' + location.host + '/ws');
 
 let image_container = document.getElementById('mapimage-container');
+let pick_label = document.getElementById('picked-by-label');
 let strain_background = document.getElementById('strain-background');
 let title = document.getElementById('title');
 let diff = document.getElementById('diff');
@@ -98,10 +99,10 @@ window.setInterval(() => {
 
 			// if (true) {  // bypass beatmap id checking during development
 			if (map.beatmap_id === parsedBeatmapID) {
-				// image_container.style.border = `5px solid ${cookieValue[1] === "red" ? "#ff8d8d" : "#93b5ff"}`;
-				// return 0;
-				image_container.style.border = `0px solid ${cookieValue[1] === "red" ? "#ff8d8d" : "#93b5ff"}`;
-				image_container.style.borderLeft = `48px solid ${cookieValue[1] === "red" ? "#ff8d8d" : "#93b5ff"}`;
+			    // image_container.style.border = `0px solid rgba(0,0,0,0)`;  // uncomment for triangle fold animation
+				image_container.style.borderLeft = `48px solid ${cookieValue[1] === "red" ? "#ff8d8d" : "#93b5ff"}`;  // keep
+
+				pick_label.style.display = "block";
 				return 0;
 			}
 			return -255;
@@ -110,7 +111,10 @@ window.setInterval(() => {
 
 	console.log(checkValid())
 	if (checkValid() !== 0) {
-		image_container.style.border = "5px solid rgba(255,255,255,0)";
+		// image_container.style.border = "48px solid rgba(255,255,255,0)";  // uncomment for triangle fold animation
+		image_container.style.borderLeft = "48px solid rgba(255,255,255,0)";  // comment out for triangle fold animation
+
+		pick_label.style.display = "none";
 	}
 }, 200);
 
