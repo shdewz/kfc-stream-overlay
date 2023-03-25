@@ -9,6 +9,7 @@ let mappool, teams;
 let socket = new ReconnectingWebSocket('ws://' + location.host + '/ws');
 
 let image_container = document.getElementById('mapimage-container');
+let pick_label = document.getElementById('picked-by-label');
 let strain_background = document.getElementById('strain-background');
 let title = document.getElementById('title');
 let diff = document.getElementById('diff');
@@ -74,6 +75,48 @@ let scoreBlue;
 let scoreRed;
 let nameBlue;
 let nameRed;
+
+let map;  // current active map
+
+// update image container border box periodically
+
+window.setInterval(() => {
+	let cookieName = "lastPick";  // for sake of readability
+	const match = document.cookie.match(`(?:^|.*)${cookieName}=(.+?)(?:$|[|;].*)`);  // get cookie by name
+
+	/**
+	 * Fetches, parses, and validates last picked map. If validation successful, display last picked overlay
+	 * @returns {number} Non-zero return value signify failure. 0 means success.
+	 */
+	let checkValid = () => {
+		if (map === undefined) return -9;
+		if (match) {
+			let cookieValue = match[1].split("-");
+			if (cookieValue.length !== 2) return -1;  // expected format: <beatmap_id>-<picking_team>
+			const parsedBeatmapID = parseInt(cookieValue[0]);
+			if (isNaN(parsedBeatmapID)) return -2;
+
+
+			// if (true) {  // bypass beatmap id checking during development
+			if (map.beatmap_id === parsedBeatmapID) {
+			    // image_container.style.border = `0px solid rgba(0,0,0,0)`;  // uncomment for triangle fold animation
+				image_container.style.borderLeft = `48px solid ${cookieValue[1] === "red" ? "#ff8d8d" : "#93b5ff"}`;  // keep
+
+				pick_label.style.display = "block";
+				return 0;
+			}
+			return -255;
+		}
+	}
+
+	console.log(checkValid())
+	if (checkValid() !== 0) {
+		// image_container.style.border = "48px solid rgba(255,255,255,0)";  // uncomment for triangle fold animation
+		image_container.style.borderLeft = "48px solid rgba(255,255,255,0)";  // comment out for triangle fold animation
+
+		pick_label.style.display = "none";
+	}
+}, 200);
 
 socket.onmessage = event => {
 	let data = JSON.parse(event.data);

@@ -222,6 +222,7 @@ async function setupBeatmaps() {
             bm.clicker.addEventListener('click', function (event) {
                 if (!event.shiftKey) {
                     setPickedMap(bm, event);
+                    document.cookie = `lastPick=${bm.beatmapID}-red;path=/`;
                     setTimeout(function () {
                         bm.pickedStatus.style.opacity = '1';
                         bm.pickedStatus.style.outline = bm.mods.includes("TB") ? "3px solid #FFF" : event.ctrlKey ? 'none' : '3px solid #ff8d8d';
@@ -229,6 +230,7 @@ async function setupBeatmaps() {
                     }, 300);
                 } else {
                     resetMapPick(bm);
+                    document.cookie = `lastPick=;path=/`;
                     setTimeout(function () {
                         bm.pickedStatus.style.opacity = '1';
                         bm.pickedStatus.innerHTML = '';
@@ -238,6 +240,7 @@ async function setupBeatmaps() {
             bm.clicker.addEventListener('contextmenu', function (event) {
                 if (!event.shiftKey) {
                     setPickedMap(bm, event);
+                    document.cookie = `lastPick=${bm.beatmapID}-blue;path=/`;
                     setTimeout(function () {
                         bm.pickedStatus.style.opacity = '1';
                         bm.pickedStatus.style.outline = bm.mods.includes("TB") ? "3px solid #FFF" : event.ctrlKey ? 'none' : '3px solid #93b5ff';
@@ -245,6 +248,7 @@ async function setupBeatmaps() {
                     }, 150);
                 } else {
                     resetMapPick(bm);
+                    document.cookie = `lastPick=;path=/`;
                     setTimeout(function () {
                         bm.pickedStatus.style.opacity = '1';
                         bm.pickedStatus.innerHTML = '';
