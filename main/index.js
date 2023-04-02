@@ -275,11 +275,14 @@ socket.onmessage = event => {
 	}
 
 	let now = Date.now();
-	if (fulltime !== data.menu.bm.time.mp3) { fulltime = data.menu.bm.time.mp3; onepart = 1220 / fulltime; }
-	if (seek !== data.menu.bm.time.current && fulltime !== undefined && fulltime != 0 && now - last_strain_update > 500) {
+	if (fulltime !== data.menu.bm.time.fulltime - data.menu.bm.time.firstObj) {
+		fulltime = data.menu.bm.time.fulltime - data.menu.bm.time.firstObj;
+		onepart = 1220 / fulltime;
+	}
+	if (seek !== data.menu.bm.time.current && fulltime !== undefined && fulltime !== 0 && now - last_strain_update > 500) {
 		last_strain_update = now;
 		seek = data.menu.bm.time.current;
-		if (scoreRed == 0 || scoreBlue == 0) {
+		if (scoreRed === 0 || scoreBlue === 0) {
 			progressChart.style.maskPosition = '-1220px 0px';
 			progressChart.style.webkitMaskPosition = '-1220px 0px';
 		}
