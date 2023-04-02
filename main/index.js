@@ -109,7 +109,7 @@ window.setInterval(() => {
 		}
 	}
 
-	console.log(checkValid())
+	// console.log(checkValid())
 	if (checkValid() !== 0) {
 		// image_container.style.border = "48px solid rgba(255,255,255,0)";  // uncomment for triangle fold animation
 		image_container.style.borderLeft = "48px solid rgba(255,255,255,0)";  // comment out for triangle fold animation
@@ -275,8 +275,8 @@ socket.onmessage = event => {
 	}
 
 	let now = Date.now();
-	if (fulltime !== data.menu.bm.time.fulltime - data.menu.bm.time.firstObj) {
-		fulltime = data.menu.bm.time.fulltime - data.menu.bm.time.firstObj;
+	if (fulltime !== data.menu.bm.time.full - data.menu.bm.time.firstObj) {
+		fulltime = data.menu.bm.time.full - data.menu.bm.time.firstObj;
 		onepart = 1220 / fulltime;
 	}
 	if (seek !== data.menu.bm.time.current && fulltime !== undefined && fulltime !== 0 && now - last_strain_update > 500) {
