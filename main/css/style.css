@@ -298,7 +298,7 @@ html {
 }
 
 #picked-by-label {
-	rotate: 270deg;
+	transform: rotate(270deg);
 	position: absolute;
 	bottom: 18px;
 	left: -12px;
