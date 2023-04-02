@@ -57,7 +57,7 @@ socket.onerror = error => { console.log('Socket Error: ', error); };
 
 let image, title_, diff_, artist_, replay_, id;
 let len_, bpm_, sr_, cs_, ar_, od_, md5;
-let strains, seek, fulltime;
+let strains, seek, fulltime, strainsStartFraction, strainsEndFraction;
 let last_strain_update = 0;
 let last_score_update = 0;
 let arrow_rotation = 0;
@@ -192,8 +192,16 @@ socket.onmessage = event => {
 			let startTime = data.menu.bm.time.firstObj;
 			let endTime = data.menu.bm.time.full;
 			let mp3Time = data.menu.bm.time.mp3;  // full duration of song
-			if (endTime/mp3Time < 0.95) {
-				strains = strains.slice(Math.floor(strains.length * (startTime/mp3Time)), Math.floor(strains.length * (0.05 + endTime/mp3Time)));
+
+			if (endTime/mp3Time < 0.95 || startTime/mp3Time > 0.05) {  // don't trim if trim amount < 5% on either side
+				strainsStartFraction = Math.max(0,
+					-0.05 + // add padding to account for smoothing
+					startTime/mp3Time);
+				strainsEndFraction = Math.min(1.00, 0.05 + endTime/mp3Time);  // idem
+				strains = strains.slice(Math.floor(strains.length * strainsStartFraction), Math.floor(strains.length * strainsEndFraction));
+			} else {
+				strainsStartFraction = 0.;
+				strainsEndFraction = 1.;
 			}
 
 			let temp_strains = smooth(strains, 3);
@@ -285,18 +293,23 @@ socket.onmessage = event => {
 
 	let now = Date.now();
 	if (fulltime !== data.menu.bm.time.full - data.menu.bm.time.firstObj) {
-		fulltime = data.menu.bm.time.full - data.menu.bm.time.firstObj;
-		onepart = 1220 / fulltime;
+		fulltime = Math.floor((strainsEndFraction - strainsStartFraction) * data.menu.bm.time.mp3);
 	}
-	if (seek !== data.menu.bm.time.current - data.menu.bm.time.firstObj && fulltime !== undefined && fulltime !== 0 && now - last_strain_update > 500) {
+	if (fulltime !== undefined && fulltime !== 0 && now - last_strain_update > 500) {
 		last_strain_update = now;
-		seek = data.menu.bm.time.current - data.menu.bm.time.firstObj;
-		if (scoreRed === 0 || scoreBlue === 0 || seek < 0) {
+		if (scoreRed === 0 || scoreBlue === 0) {
 			progressChart.style.maskPosition = '-1220px 0px';
 			progressChart.style.webkitMaskPosition = '-1220px 0px';
 		}
 		else {
-			let maskPosition = `${-1220 + onepart * seek}px 0px`;
+			seek = Math.min(
+				1.,
+				Math.max(
+					0.,
+					data.menu.bm.time.current - data.menu.bm.time.mp3 * strainsStartFraction)/fulltime
+			);
+			console.log(strainsStartFraction, strainsEndFraction, seek)
+			let maskPosition = `${-1220 + 1220 * seek}px 0px`;
 			progressChart.style.maskPosition = maskPosition;
 			progressChart.style.webkitMaskPosition = maskPosition;
 		}
