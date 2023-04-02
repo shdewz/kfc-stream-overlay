@@ -187,7 +187,16 @@ socket.onmessage = event => {
 			strains = JSON.stringify(data.menu.pp.strains);
 			if (!strains) return;
 
-			let temp_strains = smooth(data.menu.pp.strains, 3);
+			strains = data.menu.pp.strains
+
+			let startTime = data.menu.bm.time.firstObj;
+			let endTime = data.menu.bm.time.full;
+			let mp3Time = data.menu.bm.time.mp3;  // full duration of song
+			if (endTime/mp3Time < 0.95) {
+				strains = strains.slice(Math.floor(strains.length * (startTime/mp3Time)), Math.floor(strains.length * (0.05 + endTime/mp3Time)));
+			}
+
+			let temp_strains = smooth(strains, 3);
 			let new_strains = [];
 			for (let i = 0; i < Math.min(temp_strains.length, 400); i++) {
 				new_strains.push(temp_strains[Math.floor(i * (temp_strains.length / Math.min(temp_strains.length, 400)))]);
@@ -279,10 +288,10 @@ socket.onmessage = event => {
 		fulltime = data.menu.bm.time.full - data.menu.bm.time.firstObj;
 		onepart = 1220 / fulltime;
 	}
-	if (seek !== data.menu.bm.time.current && fulltime !== undefined && fulltime !== 0 && now - last_strain_update > 500) {
+	if (seek !== data.menu.bm.time.current - data.menu.bm.time.firstObj && fulltime !== undefined && fulltime !== 0 && now - last_strain_update > 500) {
 		last_strain_update = now;
-		seek = data.menu.bm.time.current;
-		if (scoreRed === 0 || scoreBlue === 0) {
+		seek = data.menu.bm.time.current - data.menu.bm.time.firstObj;
+		if (scoreRed === 0 || scoreBlue === 0 || seek < 0) {
 			progressChart.style.maskPosition = '-1220px 0px';
 			progressChart.style.webkitMaskPosition = '-1220px 0px';
 		}
