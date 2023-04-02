@@ -109,7 +109,6 @@ window.setInterval(() => {
 		}
 	}
 
-	// console.log(checkValid())
 	if (checkValid() !== 0) {
 		// image_container.style.border = "48px solid rgba(255,255,255,0)";  // uncomment for triangle fold animation
 		image_container.style.borderLeft = "48px solid rgba(255,255,255,0)";  // comment out for triangle fold animation
@@ -308,7 +307,6 @@ socket.onmessage = event => {
 					0.,
 					data.menu.bm.time.current - data.menu.bm.time.mp3 * strainsStartFraction)/fulltime
 			);
-			console.log(strainsStartFraction, strainsEndFraction, seek)
 			let maskPosition = `${-1220 + 1220 * seek}px 0px`;
 			progressChart.style.maskPosition = maskPosition;
 			progressChart.style.webkitMaskPosition = maskPosition;
@@ -477,7 +475,7 @@ let configProgress = {
 		labels: [],
 		datasets: [{
 			borderColor: 'rgba(245, 245, 245, 0)',
-			backgroundColor: 'rgba(255, 255, 255, 0.15)',
+			backgroundColor: 'rgba(255, 255, 255, 0.22)',
 			data: [],
 			fill: true,
 		}]
